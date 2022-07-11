@@ -1,0 +1,115 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AvaloniaPlaylistParser.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AvaloniaPlaylistParser.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="AvaloniaPlaylistParser">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0"
+                    Text="URL to parse:"
+                    VerticalAlignment="Center"/>
+      
+        <TextBox Grid.Row="0" Grid.Column="1"
+                 Margin="10,0,10,0"
+                 Text="{Binding URL, Mode=OneWayToSource}"/>
+      
+        <Button Grid.Row="0" Grid.Column="2"
+                Content="Parse"
+                HorizontalAlignment="Right"
+                Command="{Binding ParsePlaylistCommand}"
+                IsEnabled="{Binding IsNotBusy, Mode=OneWay}"/>
+
+        <Grid Grid.Row="1" Grid.ColumnSpan="3"
+              Margin="0,10,0,10">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"></ColumnDefinition>
+              <ColumnDefinition Width="*"></ColumnDefinition>
+              <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+        
+            <Image Grid.Row="0" Grid.Column="0"
+                   Height="128"
+                   Source="{Binding Thumbnail, Mode=OneWay}"/>
+
+            <TextBlock Grid.Row="0" Grid.Column="1"
+                       Text="{Binding Name, Mode=OneWay}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
+
+            <TextBlock Grid.Row="0" Grid.Column="2"
+                       Text="{Binding Description, Mode=OneWay}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
+        </Grid>
+
+        <ListBox Grid.Row="2" Grid.ColumnSpan="3"
+                 Items="{Binding Songs, Mode=OneWay}">
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <Border BorderBrush="Black" 
+                        BorderThickness="1" 
+                        CornerRadius="5"
+                        Padding="10">
+                
+                    <Grid>
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                      </Grid.RowDefinitions>
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                      </Grid.ColumnDefinitions>
+                  
+                      <TextBlock Grid.Row="0" Grid.Column="0"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Center"
+                                 Text="{Binding SongName}"/>
+                
+                      <TextBlock Grid.Row="0" Grid.Column="1"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Center"
+                                 Text="{Binding ArtistName}"/>
+                
+                      <TextBlock Grid.Row="0" Grid.Column="2"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Center"
+                                 Text="{Binding AlbumName}"/>
+                
+                      <TextBlock Grid.Row="0" Grid.Column="3"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Center"
+                                 Text="{Binding Duration}"/>
+                    </Grid>
+                
+                </Border>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+      
+    </Grid>
+          
+</Window>
